@@ -1,0 +1,59 @@
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class Sorting {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+
+        System.out.print("Enter the number of strings to be sorted: ");
+        int count = s.nextInt();
+        s.nextLine(); // Consume the leftover newline
+
+        String strList[] = new String[count];
+
+        System.out.println("Enter your strings:");
+        for (int i = 0; i < count; i++) {
+            System.out.print("String " + (i + 1) + ": ");
+            strList[i] = s.nextLine();
+        }
+
+        System.out.println("\nChoose an option from the menu:");
+        System.out.println("1. Built-in sort using Arrays.sort()");
+        System.out.println("2. User-defined sorting logic (bubble sort)");
+
+        int choice = s.nextInt();
+
+        switch (choice) {
+            case 1:
+                Arrays.sort(strList);
+                System.out.println("\nStrings after sorting (built-in):");
+                break;
+
+            case 2:
+                // Simple bubble sort
+                for (int i = 0; i < count - 1; i++) {
+                    for (int j = i + 1; j < count; j++) {
+                        if (strList[i].compareTo(strList[j]) > 0) {
+                            String temp = strList[i];
+                            strList[i] = strList[j];
+                            strList[j] = temp;
+                        }
+                    }
+                }
+                System.out.println("\nStrings after sorting (user-defined):");
+                break;
+
+            default:
+                System.out.println("Invalid choice. Please choose 1 or 2.");
+                s.close();
+                return;
+        }
+
+        // Print sorted array
+        for (String str : strList) {
+            System.out.println(str);
+        }
+
+        s.close();
+    }
+}
