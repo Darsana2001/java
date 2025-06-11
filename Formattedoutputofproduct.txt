@@ -1,0 +1,82 @@
+import java.util.Scanner;
+import java.util.Calendar;
+import java.util.Date;
+
+interface Begin {
+    int calculate();
+}
+
+class Product implements Begin {
+    public String name;
+    public int prodid, quantity, unitprice, total;
+
+    public Product(String n, int p, int q, int u) {
+        name = n;
+        prodid = p;
+        quantity = q;
+        unitprice = u;
+        total = calculate();
+    }
+
+    public int calculate() {
+        return quantity * unitprice;
+    }
+
+    public void printProduct() {
+        System.out.printf("%-10d %-15s %-10d %-12d %-10d\n", prodid, name, quantity, unitprice, total);
+    }
+}
+
+public class Shop {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the number of orders:");
+        int n = sc.nextInt();
+        sc.nextLine(); // consume newline
+
+        Product[][] order = new Product[n][];
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Enter the number of products for order " + (i + 1) + ":");
+            int m = sc.nextInt();
+            sc.nextLine(); // consume newline
+            order[i] = new Product[m];
+
+            for (int j = 0; j < m; j++) {
+                System.out.println("Enter product " + (j + 1) + " name:");
+                String a = sc.nextLine();
+
+                System.out.println("Enter product ID:");
+                int b = sc.nextInt();
+
+                System.out.println("Enter product quantity:");
+                int c = sc.nextInt();
+
+                System.out.println("Enter product price:");
+                int d = sc.nextInt();
+                sc.nextLine(); // consume newline after int inputs
+
+                order[i][j] = new Product(a, b, c, d);
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            System.out.println("\nOrder number " + (i + 1));
+            Date date = Calendar.getInstance().getTime();
+            System.out.println(date);
+            System.out.println("__________________________________________________");
+            System.out.printf("%-10s %-15s %-10s %-12s %-10s\n", "ProductID", "Product Name", "Quantity", "Unit Price", "Total");
+            System.out.println("__________________________________________________");
+
+            for (Product product : order[i]) {
+                product.printProduct();
+                sum += product.total;
+            }
+            System.out.println("__________________________________________________");
+            System.out.println("Net amount: " + sum);
+            System.out.println("__________________________________________________");
+        }
+        sc.close();
+    }
+}

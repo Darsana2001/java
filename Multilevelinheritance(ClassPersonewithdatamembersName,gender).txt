@@ -1,0 +1,127 @@
+import java.util.Scanner;
+
+class Person {
+    String name, gender, address;
+    protected int age;
+
+    public Person() {}
+
+    public Person(String n, String g, String addr, int a) {
+        this.name = n;
+        this.gender = g;
+        this.address = addr;
+        this.age = a;
+    }
+
+    public void displayPerson() {
+        System.out.println("Name     : " + name);
+        System.out.println("Gender   : " + gender);
+        System.out.println("Address  : " + address);
+        System.out.println("Age      : " + age);
+    }
+}
+
+class Employee extends Person {
+    int empid, salary;
+    String companyName, qualif;
+
+    public Employee() {}
+
+    public Employee(String n, String g, String addr, int a, int eid, String cname, String qual, int sal) {
+        super(n, g, addr, a);
+        empid = eid;
+        companyName = cname;
+        qualif = qual;
+        salary = sal;
+    }
+
+    public void displayEmployee() {
+        super.displayPerson();
+        System.out.println("EmpID        : " + empid);
+        System.out.println("Company Name : " + companyName);
+        System.out.println("Qualification: " + qualif);
+        System.out.println("Salary       : " + salary);
+    }
+}
+
+class Teacher extends Employee {
+    int teacherid;
+    String subject, department;
+
+    public Teacher(String n, String g, String addr, int a, int eid, String cname, String qual, int sal,
+                   String sub, String dept, int tid) {
+        super(n, g, addr, a, eid, cname, qual, sal);
+        subject = sub;
+        department = dept;
+        teacherid = tid;
+    }
+
+    public void displayTeacher() {
+        super.displayEmployee();
+        System.out.println("Teacher ID : " + teacherid);
+        System.out.println("Subject    : " + subject);
+        System.out.println("Department : " + department);
+        System.out.println("--------------------------------------------------");
+    }
+}
+
+public class School {
+    public static void main(String args[]) {
+        Scanner s = new Scanner(System.in);
+
+        System.out.print("Enter number of teachers: ");
+        int n = s.nextInt();
+        s.nextLine(); // consume leftover newline
+
+        Teacher[] teachers = new Teacher[n];
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("\nEnter details for Teacher " + (i + 1) + ":");
+
+            System.out.print("Name: ");
+            String name = s.nextLine();
+
+            System.out.print("Gender: ");
+            String gen = s.nextLine();
+
+            System.out.print("Address: ");
+            String addr = s.nextLine();
+
+            System.out.print("Age: ");
+            int age = s.nextInt();
+
+            System.out.print("EmpID: ");
+            int eid = s.nextInt();
+            s.nextLine(); // consume newline
+
+            System.out.print("Company Name: ");
+            String cn = s.nextLine();
+
+            System.out.print("Qualification: ");
+            String quali = s.nextLine();
+
+            System.out.print("Salary: ");
+            int sal = s.nextInt();
+
+            System.out.print("Teacher ID: ");
+            int tid = s.nextInt();
+            s.nextLine(); // consume newline
+
+            System.out.print("Subject: ");
+            String sub = s.nextLine();
+
+            System.out.print("Department: ");
+            String dept = s.nextLine();
+
+            teachers[i] = new Teacher(name, gen, addr, age, eid, cn, quali, sal, sub, dept, tid);
+        }
+
+        // Display all teacher details
+        System.out.println("\n============= Teacher Details =============");
+        for (Teacher t : teachers) {
+            t.displayTeacher();
+        }
+
+        s.close();
+    }
+}
