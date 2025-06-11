@@ -1,0 +1,67 @@
+import java.util.Scanner;
+
+class Employee {
+    int eNo;
+    String eName;
+    int eSalary;
+
+    public void read() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter ID: ");
+        eNo = Integer.parseInt(sc.nextLine());
+        System.out.print("Enter Name: ");
+        eName = sc.nextLine();
+        System.out.print("Enter Monthly Salary: ");
+        eSalary = Integer.parseInt(sc.nextLine());
+    }
+
+    public void display() {
+        System.out.println("ID: " + eNo);
+        System.out.println("Name: " + eName);
+        System.out.println("Monthly Salary: " + eSalary);
+    }
+
+    public static void main(String[] args) {
+        int n = 3; // Number of employees
+        Employee[] emp = new Employee[n];
+        Scanner sc = new Scanner(System.in);
+
+        // Read employee details
+        for (int i = 0; i < n; i++) {
+            emp[i] = new Employee();
+            emp[i].read();
+        }
+
+        // Search loop
+        System.out.println("\nSearch Employee by ID");
+        while (true) {
+            System.out.print("Enter ID (or type 'exit' to quit): ");
+            String input = sc.nextLine();
+
+            if (input.equalsIgnoreCase("exit")) {
+                break;
+            }
+
+            try {
+                int No = Integer.parseInt(input);
+                boolean found = false;
+
+                for (int i = 0; i < n; i++) {
+                    if (emp[i].eNo == No) {
+                        emp[i].display();
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    System.out.println("Employee with ID " + No + " not found.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid numeric ID or 'exit'.");
+            }
+        }
+
+        sc.close();
+    }
+}

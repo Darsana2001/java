@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String args[]) {
+        int i, j, row, cols;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the number of rows:");
+        row = sc.nextInt();
+        System.out.println("Enter the number of columns:");
+        cols = sc.nextInt();
+
+        int[][] mat = new int[row][cols];
+
+        System.out.println("Enter the elements of the matrix:");
+        for (i = 0; i < row; i++) {
+            for (j = 0; j < cols; j++) {
+                mat[i][j] = sc.nextInt();
+            }
+        }
+
+        System.out.println("Matrix elements:");
+        for (i = 0; i < row; i++) {
+            for (j = 0; j < cols; j++) {
+                System.out.print(mat[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        if (row != cols) {
+            System.out.println("Not symmetric (not a square matrix)");
+            return; // exit early
+        }
+
+        for (i = 0; i < row; i++) {
+            for (j = 0; j < cols; j++) {
+                if (mat[i][j] != mat[j][i]) {
+                    System.out.println("The matrix is not symmetric");
+                    return; // stop further checking
+                }
+            }
+        }
+
+        System.out.println("The matrix is symmetric");
+    }
+}
